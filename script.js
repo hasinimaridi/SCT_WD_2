@@ -1,76 +1,93 @@
-let timer;
-let seconds = 0;
-let minutes = 0;
-let hours = 0;
-let running = false;
+const questions = [
+{
+    question: "Which language is used for web page structure?",
+    answers: ["Python", "HTML", "Java", "C++"],
+    correct: 1
+},
+{
+    question: "Which language is used for styling web pages?",
+    answers: ["CSS", "Java", "PHP", "C"],
+    correct: 0
+},
+{
+    question: "Which language is used for webpage interactivity?",
+    answers: ["Java", "JavaScript", "C#", "Python"],
+    correct: 1
+},
+{
+    question: "What does CPU stand for?",
+    answers: [
+        "Central Processing Unit",
+        "Computer Personal Unit",
+        "Control Processing User",
+        "Central Program Unit"
+    ],
+    correct: 0
+}
+];
 
-function updateDisplay() {
+let currentQuestion = 0;
+let score = 0;
 
-    let h = hours < 10 ? "0" + hours : hours;
-    let m = minutes < 10 ? "0" + minutes : minutes;
-    let s = seconds < 10 ? "0" + seconds : seconds;
+const questionElement = document.getElementById("question");
+const answerButtons = document.getElementById("answers");
+const nextButton = document.getElementById("nextBtn");
+const result = document.getElementById("result");
 
-    document.getElementById("display").innerText =
-        `${h}:${m}:${s}`;
+function showQuestion(){
+
+    let q = questions[currentQuestion];
+
+    questionElement.innerText = q.question;
+
+    answerButtons.innerHTML = "";
+
+    q.answers.forEach((answer,index)=>{
+
+        const button = document.createElement("button");
+
+        button.innerText = answer;
+        button.classList.add("btn");
+
+        button.onclick = () => selectAnswer(index);
+
+        answerButtons.appendChild(button);
+    });
 }
 
-function startStop() {
+function selectAnswer(index){
 
-    if (!running) {
-
-        running = true;
-
-        timer = setInterval(() => {
-
-            seconds++;
-
-            if (seconds === 60) {
-                seconds = 0;
-                minutes++;
-            }
-
-            if (minutes === 60) {
-                minutes = 0;
-                hours++;
-            }
-
-            updateDisplay();
-
-        }, 1000);
+    if(index === questions[currentQuestion].correct){
+        score++;
     }
+
+    Array.from(answerButtons.children).forEach(btn=>{
+        btn.disabled = true;
+    });
 }
 
-function pauseStop() {
+nextButton.addEventListener("click",()=>{
 
-    clearInterval(timer);
-    running = false;
-}
+    currentQuestion++;
 
-function resetStop() {
-
-    clearInterval(timer);
-
-    running = false;
-    seconds = 0;
-    minutes = 0;
-    hours = 0;
-
-    updateDisplay();
-
-    document.getElementById("laps").innerHTML = "";
-}
-
-function recordLap() {
-
-    if (running) {
-
-        let lap = document.createElement("li");
-
-        lap.innerText =
-            document.getElementById("display").innerText;
-
-        document.getElementById("laps").appendChild(lap);
+    if(currentQuestion < questions.length){
+        showQuestion();
     }
+    else{
+        showScore();
+    }
+});
+
+function showScore(){
+
+    questionElement.innerText = "Quiz Completed!";
+
+    answerButtons.innerHTML = "";
+
+    result.innerHTML =
+    `Your Score: ${score} / ${questions.length}`;
+
+    nextButton.style.display = "none";
 }
 
-updateDisplay();
+showQuestion();

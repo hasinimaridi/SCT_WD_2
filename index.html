@@ -3,44 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task 02 - Stopwatch</title>
+    <title>Task 03 - Quiz Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <div class="task-box">
-            <h1>TASK 02</h1>
-        </div>
-
-        <h2>STOPWATCH WEB APPLICATION</h2>
-
-        <div class="stopwatch">
-            <div id="display">00:00:00</div>
-
-            <div class="buttons">
-                <button onclick="startStop()">Start</button>
-                <button onclick="pauseStop()">Pause</button>
-                <button onclick="resetStop()">Reset</button>
-                <button onclick="recordLap()">Lap</button>
-            </div>
-
-            <ul id="laps"></ul>
-        </div>
-
-        <div class="description">
-            <p>
-                Create an interactive and user-friendly stopwatch web application.
-            </p>
-
-            <p>
-                Implement functions for starting, pausing, resetting the stopwatch,
-                and tracking lap times.
-            </p>
-        </div>
-
+    <div class="task-box">
+        <h1>TASK 03</h1>
     </div>
+
+    <h2>QUIZ GAME APPLICATION</h2>
+
+    <div class="quiz-box">
+        <h3 id="question">Question appears here</h3>
+
+        <div id="answers"></div>
+
+        <button id="nextBtn">Next Question</button>
+
+        <div id="result"></div>
+    </div>
+
+</div>
 
 <script src="script.js"></script>
 
